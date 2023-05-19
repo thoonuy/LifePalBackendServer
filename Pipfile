@@ -13,6 +13,7 @@ ipython = "*"
 scikit-learn = "*"
 scipy = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
