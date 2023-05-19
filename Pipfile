@@ -5,6 +5,13 @@ name = "pypi"
 
 [packages]
 django = "*"
+psycopg2 = "*"
+djangorestframework = "*"
+pandas = "*"
+numpy = "*"
+ipython = "*"
+scikit-learn = "*"
+scipy = "*"
 
 [dev-packages]
 
