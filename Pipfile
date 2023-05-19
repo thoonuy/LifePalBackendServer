@@ -12,6 +12,7 @@ numpy = "*"
 ipython = "*"
 scikit-learn = "*"
 scipy = "*"
+gunicorn = "*"
 
 [dev-packages]
 
