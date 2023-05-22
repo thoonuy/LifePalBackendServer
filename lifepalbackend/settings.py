@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-52%s(*##tdrziiq2gnec*zn57!)&5gprsuqk+fs1&#+(0c^e!=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', '3.15.22.210']
 
 
 # Application definition
@@ -81,7 +81,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lifepaldb',
-        'USER': 'lifepaladmin',
         'USERNAME': 'lifepaladmin',
         'PASSWORD': 'lpapassword123',
         'HOST': 'localhost',
