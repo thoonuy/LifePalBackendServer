@@ -20,9 +20,12 @@ class FoodItemViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def recommendfood(request):
     if request.method == 'GET':
-        weight = int(request.GET['weight'])
+        weight = float(request.GET['weight'])
         bodyfat = float(request.GET['bodyfat'])
-        avg_activity = int(request.GET['avg_activity'])
+        avg_activity = float(request.GET['avg_activity'])
+        cb = int(request.GET['cb'])
+        cl = int(request.GET['cl'])
+        cd = int(request.GET['cd'])
 
         fullmenu = FoodItem.objects.all()
         fullmenu = list(fullmenu)
@@ -37,21 +40,29 @@ def recommendfood(request):
             food_list.append(food)
         
         fr = food_recommend.FoodRecommendation(food_list)
-        breakfast = fr.recommend_foods(weight=weight, fat=bodyfat, avg_ae=avg_activity, time='breakfast', c=1)[0][1]
-        lunch = fr.recommend_foods(weight=weight, fat=bodyfat, avg_ae=avg_activity, time='lunch', c=1)[0][1]
-        dinner = fr.recommend_foods(weight=weight, fat=bodyfat, avg_ae=avg_activity, time='dinner', c=1)[0][1]
+        breakfast = fr.recommend_foods(weight=weight, fat=bodyfat, avg_ae=avg_activity, time='breakfast', c=cb)
+        lunch = fr.recommend_foods(weight=weight, fat=bodyfat, avg_ae=avg_activity, time='lunch', c=cl)
+        dinner = fr.recommend_foods(weight=weight, fat=bodyfat, avg_ae=avg_activity, time='dinner', c=cd)
         
-        breakfast = FoodItem.objects.get(name=breakfast)
-        lunch = FoodItem.objects.get(name=lunch)
-        dinner = FoodItem.objects.get(name=dinner)
+        breakfast = [t[1] for t in breakfast]
+        lunch = [t[1] for t in lunch]
+        dinner = [t[1] for t in dinner]
+
+        def getFIObjects(meal):
+            fiobjs = [FoodItem.objects.get(name=fi) for fi in meal]
+            return fiobjs
+
+        breakfast = getFIObjects(breakfast)
+        lunch = getFIObjects(lunch)
+        dinner = getFIObjects(dinner)
         
         responsedict = [
             {"category": "Breakfast",
-             "items": [breakfast.reformatforios()[1]]},
+             "items": [x.reformatforios()[1] for x in breakfast]},
             {"category": "Lunch",
-             "items": [lunch.reformatforios()[1]]},
+             "items": [x.reformatforios()[1] for x in lunch]},
             {"category": "Dinner",
-             "items": [dinner.reformatforios()[1]]}
+             "items": [x.reformatforios()[1] for x in dinner]}
         ]
         
         return Response(responsedict)
