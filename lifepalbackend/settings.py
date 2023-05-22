@@ -81,6 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lifepaldb',
+        'USER': 'lifepaladmin',
         'USERNAME': 'lifepaladmin',
         'PASSWORD': 'lpapassword123',
         'HOST': 'localhost',
