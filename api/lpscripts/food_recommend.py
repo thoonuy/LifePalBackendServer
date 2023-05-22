@@ -64,13 +64,15 @@ class FoodRecommendation():
             x = skewnorm.rvs(a_param, loc, scale, size)
             return x
         
+        # TODO: line 94-103 is changed
         # generate c random calories splits (skewed)
         cal_seg = []
         total_cal = input_cal
-        for _ in range(c):
+        for _ in range(c-1):
             cal = _skewed_random(0, total_cal, skewness=-2)
             cal_seg.append(cal)
             total_cal -= cal
+        cal_seg.append(total_cal)
 
         if debug == True:
             print(cal_seg)
@@ -89,7 +91,7 @@ class FoodRecommendation():
         return cdist
     
 
-    def recommend_foods(self, weight=70, fat=0.165, avg_ae=300, time='lunch', c=1):
+    def recommend_foods(self, weight=70.0, fat=0.165, avg_ae=300.0, time='lunch', c=1):
         """
         Recommend c foods based on user's health data
         : c - size of combinations of food items
@@ -98,3 +100,9 @@ class FoodRecommendation():
 
         return self.find_foods(cal_needs, c)
     
+
+
+
+
+
+
