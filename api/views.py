@@ -68,6 +68,20 @@ def recommendfood(request):
         return Response(responsedict)
 
 @api_view(['GET'])
+def foodrec(request):
+    if request.method == 'GET':
+        # 1. get params from request
+        # 2. for each meal time
+        # 2.a. get FoodItem objects
+        # 2.b. convert to food_list
+        # 2.c. create FoodRecommendation object
+        # 2.d. recommend 
+        # 2.e. reformat for response
+
+        responsedict = [{"under": "construction"}]
+        return Response(responsedict)
+
+@api_view(['GET'])
 def menu(request):
     if request.method == 'GET':
         fullmenu = FoodItem.objects.all()
