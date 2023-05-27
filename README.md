@@ -1,8 +1,6 @@
 # LifePalBackend
 
-## Endpoints
-
-### Food Recommendation
+## Food Recommendation Endpoint
 
 Access with `api/foodrec`. All parameters below are required.
 
@@ -22,12 +20,12 @@ __Parameters__:
 __Example__:  
 <http://3.15.22.210:8000/api/foodrec/?weight=55&bodyfat=0.165&avg_activity=300&cb=2&cl=1&cd=1>
 
-### Full Menu
+## Full Menu Endpoint
 
 Access with `api/menu`. No parameters needed. Simply follow link below:  
 <http://3.15.22.210:8000/api/menu/>
 
-### Water Intake Recommendation
+## Water Intake Recommendation Endpoint
 
 Access with `api/waterrec`. All parameters below are required.
 
