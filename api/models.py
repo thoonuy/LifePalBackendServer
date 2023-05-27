@@ -4,6 +4,7 @@ from django.db import models
 class FoodItem(models.Model):
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
+    mealtime = models.CharField(max_length=20)
     description = models.CharField(max_length=255)
     isVegan = models.BooleanField()
     isVegetarian = models.BooleanField()
