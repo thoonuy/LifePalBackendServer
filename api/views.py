@@ -6,7 +6,7 @@ from .serializer import FoodItemSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 # from .lpscripts.testscript import dosomething
-from .lpscripts import food_recommend
+from .lpscripts import food_recommend, water_intake_recommend
 
 class FoodItemViewSet(viewsets.ModelViewSet):
     queryset = FoodItem.objects.all()
@@ -126,6 +126,14 @@ def foodrec(request):
         ]
 
         return Response(responsedict)
+
+@api_view(['GET'])
+def waterrec(request):
+    if request.method == 'GET':
+        path = "./lpscripts/water_drinking_data.csv"
+        wr = water_intake_recommend.WaterRecommendatio(path)
+        model_path = "./lpscripts/waterrec_models/water_intake_model"
+    pass
 
 @api_view(['GET'])
 def menu(request):

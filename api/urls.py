@@ -10,5 +10,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('recommendfood/', views.recommendfood),
     path('foodrec/', views.foodrec),
+    path('waterrec/', views.waterrec),
     path('menu/', views.menu)
 ]
