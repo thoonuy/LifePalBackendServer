@@ -6,13 +6,18 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error
 import joblib
 import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 class WaterRecommendatio():
     def __init__(self, input_path):
         """
         : input_path -> path to dataset
         """
-        self._init_prediction_model(input_path, file_name='water_intake_model', out_path='models')
+        # self._init_prediction_model(input_path, file_name='water_intake_model', out_path='models')
+        op = os.path.join(BASE_DIR, "lpscripts/models")
+        self._init_prediction_model(input_path, file_name='water_intake_model', out_path=op)
 
     def _init_water_df(self, filepath):
         """

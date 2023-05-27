@@ -5,8 +5,11 @@ from rest_framework import permissions # so only authenticated users can access 
 from .serializer import FoodItemSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-# from .lpscripts.testscript import dosomething
 from .lpscripts import food_recommend, water_intake_recommend
+from pathlib import Path
+import os
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 class FoodItemViewSet(viewsets.ModelViewSet):
     queryset = FoodItem.objects.all()
@@ -130,10 +133,21 @@ def foodrec(request):
 @api_view(['GET'])
 def waterrec(request):
     if request.method == 'GET':
-        path = "./lpscripts/water_drinking_data.csv"
+        # 1. get params from request
+        age = float(request.GET['age'])
+        weight = float(request.GET['weight'])
+        height = float(request.GET['height'])
+        avg_activity = float(request.GET['avg_activity'])
+        temperature = float(request.GET['temperature'])
+        # 2. recommend
+        path = os.path.join(BASE_DIR, "api/lpscripts/water_drinking_data.csv")
         wr = water_intake_recommend.WaterRecommendatio(path)
-        model_path = "./lpscripts/waterrec_models/water_intake_model"
-    pass
+        model_path = os.path.join(BASE_DIR, "api/lpscripts/models/water_intake_model")
+        scaler_path = os.path.join(BASE_DIR, "api/lpscripts/models/std_scaler.bin")
+        result = wr.recommend_water_intake(age,weight,height,avg_activity,temperature, model_path, scaler_path)
+        # 3. respond
+        responsedict = {"recommended intake": result, "unit": "liters"}
+        return Response(responsedict)
 
 @api_view(['GET'])
 def menu(request):
