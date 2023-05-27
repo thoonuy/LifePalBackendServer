@@ -117,11 +117,11 @@ class WaterRecommendatio():
 
 
 if __name__ == "__main__":
-    path = 'water_intake_datasets/water_drinking_data.csv'
+    path = './water_drinking_data.csv'
     wr = WaterRecommendatio(input_path=path)
 
-    model_path = 'models/water_intake_model'
-    scaler_path = 'models/std_scaler.bin'
+    model_path = './waterrec_models/water_intake_model'
+    scaler_path = './waterrec_models/std_scaler.bin'
     result = wr.recommend_water_intake(21, 10, 1.85, 320, 14, model_path, scaler_path)
     print(f"Should drink {result} liters of water")
 
