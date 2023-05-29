@@ -95,8 +95,8 @@ def foodrec(request):
         recfoods = fr.recommend_foods(weight=w, fat=bf, avg_ae=aa, time=mealtime, c=c)
         return [t[1] for t in recfoods]
 
-    def getFIObjects(meal):
-        fiobjs = [FoodItem.objects.get(name=fi) for fi in meal]
+    def getFIObjects(meal, mealtime):
+        fiobjs = [FoodItem.objects.get(name=fi, mealtime=mealtime) for fi in meal]
         return fiobjs
 
     if request.method == 'GET':
@@ -115,9 +115,10 @@ def foodrec(request):
         dinner = getrec("dinner", weight, bodyfat, avg_activity, cd)
 
         # 2.b. reformat for response
-        breakfast = getFIObjects(breakfast)
-        lunch = getFIObjects(lunch)
-        dinner = getFIObjects(dinner)
+        breakfast = getFIObjects(breakfast, "breakfast")
+        lunch = getFIObjects(lunch, "lunch")
+        dinner = getFIObjects(dinner, "dinner")
+
         
         responsedict = [
             {"category": "Breakfast",
