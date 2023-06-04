@@ -5,7 +5,7 @@ from rest_framework import permissions # so only authenticated users can access 
 from .serializer import FoodItemSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .lpscripts import food_recommend, water_intake_recommend
+from .lpscripts import food_recommend, water_intake_recommend, sleep_time_recommend
 from pathlib import Path
 import os
 
@@ -148,6 +148,33 @@ def waterrec(request):
         result = wr.recommend_water_intake(age,weight,height,avg_activity,temperature, model_path, scaler_path)
         # 3. respond
         responsedict = {"recommended intake": result, "unit": "liters"}
+        return Response(responsedict)
+
+@api_view(['GET'])
+def sleeprec(request):
+    def time_to_output_dict(t):
+        hh,mm = t.split(':')
+        return {"sleep_time": hh+mm, "date": "before"}
+
+    if request.method == 'GET':
+        # format:
+        # sleep_rcm.recommend_sleep_times('dev2', 'pass2312', 9, 6.89, 654, "6:32")
+        # (user, pass, avg_in_bed, avg_asleep, avg_activity, waketime)
+        # 1. get params from request
+        # age = float(request.GET['age'])
+        avg_asleep = float(request.GET['avg_asleep'])
+        avg_inbed = float(request.GET['avg_inbed'])
+        avg_activity = float(request.GET['avg_activity'])
+        wake_time = str(request.GET['wake_time'])
+        wake_time = str(int(wake_time[0:2])) + ':' + wake_time[2:]
+        # 2. recommend
+        sleep_rcm = sleep_time_recommend.SleepRecommendation()
+        recs,x = sleep_rcm.recommend_sleep_times('dev2', 'pass2312', avg_asleep, avg_inbed, avg_activity, wake_time)
+        # recs,x = sleep_rcm.recommend_sleep_times('dev2', 'pass2312', 9, 6.89, 654, "9:52")
+        # 3. respond
+        # ([('21:32', 0.7655555555555555), ('21:32', 0.7655555555555555), ('21:32', 0.7655555555555555)], 
+        #  '06:32')
+        responsedict = [time_to_output_dict(r[0]) for r in recs]
         return Response(responsedict)
 
 @api_view(['GET'])

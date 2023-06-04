@@ -11,5 +11,6 @@ urlpatterns = [
     path('recommendfood/', views.recommendfood),
     path('foodrec/', views.foodrec),
     path('waterrec/', views.waterrec),
+    path('sleeprec/', views.sleeprec),
     path('menu/', views.menu)
 ]
