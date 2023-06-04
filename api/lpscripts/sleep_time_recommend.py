@@ -172,6 +172,7 @@ class SleepRecommendation():
         # calculate sleep efficiency for each log
         efficiencies = []
         for log in logs:
+            next_day = True
             log_avg_ae, log_in_bed_time, log_asleep_time, log_wake_time = log
             # calculate sleep efficiency score
             efficiency = log_asleep_time / log_in_bed_time
@@ -180,9 +181,11 @@ class SleepRecommendation():
 
             if wake_time_minutes < in_bed_time_minutes:
                 wake_time_minutes += 24 * 60
+                next_day = False
+            
 
             sleep_time_minutes = wake_time_minutes - in_bed_time_minutes
-            efficiencies.append((efficiency, sleep_time_minutes))
+            efficiencies.append((efficiency, sleep_time_minutes, next_day))
 
         # sort by sleep efficiency score
         efficiencies.sort(reverse=True)
@@ -191,7 +194,13 @@ class SleepRecommendation():
         top_times = efficiencies[:3]
 
         # convert time format
-        rcm_sleep_times = [(self._minutes_to_time(time % (24 * 60)), e) for e, time in top_times]
+        rcm_sleep_times = [(self._minutes_to_time(time), e, next_day) for e, time, next_day in top_times]
+
+        # remove duplicates
+        unique_dict = dict.fromkeys(rcm_sleep_times)
+
+        # Convert the dictionary keys back to a list of tuples
+        rcm_sleep_times = list(unique_dict.keys())
 
         # add user acess data to log
         if _add_flag == False:
