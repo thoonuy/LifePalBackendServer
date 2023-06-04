@@ -44,3 +44,23 @@ __Parameters__:
 __Example__:  
 <http://3.15.22.210:8000/api/waterrec/?age=21&weight=10&height=1.85&avg_activity=320&temperature=14>
 
+## Sleep Time Recommendation Endpoint
+
+Access with `api/sleeprec`. All parameters below are required.
+
+__Use format__:  
+```
+http://3.15.22.210:8000/api/sleeprec/?user=XXX&age=&avg_asleep=XXX&avg_inbed=XXX&avg_activity=XXX&wake_time=XXX
+```
+
+__Parameters__:  
+`user`: The user's username
+`age`: User's age in years.  
+`avg_alseep`: Average time user spends alseep.  
+`avg_inbed`: Average time user spends in bed.  
+`avg_activity`: Average daily active energy expenditure of user.  
+`wake_time`: The user's desired wake up time.
+
+__Example__:  
+<http://3.15.22.210:8000/api/sleeprec/?user=anteater&age=21&avg_asleep=9&avg_inbed=6.89&avg_activity=654&wake_time=0632>
+
