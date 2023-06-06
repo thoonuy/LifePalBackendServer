@@ -157,11 +157,7 @@ def sleeprec(request):
         return {"sleep_time": hh+mm, "date": "before"}
 
     if request.method == 'GET':
-        # format:
-        # sleep_rcm.recommend_sleep_times('dev2', 'pass2312', 9, 6.89, 654, "6:32")
-        # (user, pass, avg_in_bed, avg_asleep, avg_activity, waketime)
         # 1. get params from request
-        # age = float(request.GET['age'])
         avg_asleep = float(request.GET['avg_asleep'])
         avg_inbed = float(request.GET['avg_inbed'])
         avg_activity = float(request.GET['avg_activity'])
@@ -169,11 +165,9 @@ def sleeprec(request):
         wake_time = str(int(wake_time[0:2])) + ':' + wake_time[2:]
         # 2. recommend
         sleep_rcm = sleep_time_recommend.SleepRecommendation()
-        recs,x = sleep_rcm.recommend_sleep_times('dev2', 'pass2312', avg_asleep, avg_inbed, avg_activity, wake_time)
+        recs,x = sleep_rcm.recommend_sleep_times('dev2', 'pass2312', avg_inbed, avg_asleep, avg_activity, wake_time)
         # recs,x = sleep_rcm.recommend_sleep_times('dev2', 'pass2312', 9, 6.89, 654, "9:52")
         # 3. respond
-        # ([('21:32', 0.7655555555555555), ('21:32', 0.7655555555555555), ('21:32', 0.7655555555555555)], 
-        #  '06:32')
         responsedict = [time_to_output_dict(r[0]) for r in recs]
         return Response(responsedict)
 
