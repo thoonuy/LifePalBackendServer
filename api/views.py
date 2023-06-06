@@ -152,9 +152,9 @@ def waterrec(request):
 
 @api_view(['GET'])
 def sleeprec(request):
-    def time_to_output_dict(t):
+    def time_to_output_dict(t,b):
         hh,mm = t.split(':')
-        return {"sleep_time": hh+mm, "date": "before"}
+        return {"sleep_time": hh+mm, "date": "after" if b else "before"}
 
     if request.method == 'GET':
         # 1. get params from request
@@ -165,10 +165,11 @@ def sleeprec(request):
         wake_time = str(int(wake_time[0:2])) + ':' + wake_time[2:]
         # 2. recommend
         sleep_rcm = sleep_time_recommend.SleepRecommendation()
+        # [('01:05', 0.8817204301075268, True), ('23:32', 0.7655555555555555, False)]
         recs,x = sleep_rcm.recommend_sleep_times('dev2', 'pass2312', avg_inbed, avg_asleep, avg_activity, wake_time)
         # recs,x = sleep_rcm.recommend_sleep_times('dev2', 'pass2312', 9, 6.89, 654, "9:52")
         # 3. respond
-        responsedict = [time_to_output_dict(r[0]) for r in recs]
+        responsedict = [time_to_output_dict(r[0], r[2]) for r in recs]
         return Response(responsedict)
 
 @api_view(['GET'])
