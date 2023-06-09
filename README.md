@@ -54,13 +54,12 @@ http://3.15.22.210:8000/api/sleeprec/?user=XXX&age=&avg_asleep=XXX&avg_inbed=XXX
 ```
 
 __Parameters__:  
-`user`: The user's username
-`age`: User's age in years.  
+`user`: The user's username  
 `avg_alseep`: Average time user spends alseep.  
 `avg_inbed`: Average time user spends in bed.  
 `avg_activity`: Average daily active energy expenditure of user.  
 `wake_time`: The user's desired wake up time.
 
 __Example__:  
-<http://3.15.22.210:8000/api/sleeprec/?user=anteater&age=21&avg_asleep=9&avg_inbed=6.89&avg_activity=654&wake_time=0632>
+<http://3.15.22.210:8000/api/sleeprec/?user=anteater&avg_asleep=6.89&avg_inbed=9&avg_activity=654&wake_time=0632>
 
