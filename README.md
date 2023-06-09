@@ -50,7 +50,7 @@ Access with `api/sleeprec`. All parameters below are required.
 
 __Use format__:  
 ```
-http://3.15.22.210:8000/api/sleeprec/?user=XXX&age=&avg_asleep=XXX&avg_inbed=XXX&avg_activity=XXX&wake_time=XXX
+http://3.15.22.210:8000/api/sleeprec/?user=XXX&avg_asleep=XXX&avg_inbed=XXX&avg_activity=XXX&wake_time=XXX
 ```
 
 __Parameters__:  
